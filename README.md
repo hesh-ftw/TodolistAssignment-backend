@@ -22,20 +22,20 @@
 
 #### 1. Clone the Repository
 
-```http
-git clone https://github.com/hesh-ftw/TodolistAssignment-backend.git
+```
+https://github.com/hesh-ftw/TodolistAssignment-backend.git
 ```
 
 #### 2. Clone the Repository
 
-```http
+```
 cd TodolistAssignment-backend
 
 ```
 
 #### 3. configure and update the database credentials
 
-```http
+```
 
 navigate to this: src/main/resources/application.properties
 
@@ -49,14 +49,14 @@ spring.datasource.password=your_mysql_password
 
 #### 4. Build the project- use maven
 
-```http
+```
 ./mvnw clean install
 
 ```
 
 #### 5. Run the project
 
-```http
+```
 ./mvnw spring-boot:run
 
 ```
