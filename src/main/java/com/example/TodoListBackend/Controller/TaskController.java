@@ -52,7 +52,8 @@ public class TaskController {
         User user= userService.findUserByJwtToken(jwt);
         taskService.deleteTask(taskId);
 
-        MessageResponse response= new MessageResponse("Task deleted successfully !");
+        MessageResponse response= new MessageResponse();
+        response.setMessage("task deleted success!");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

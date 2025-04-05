@@ -5,6 +5,10 @@ import com.example.TodoListBackend.Model.PasswordResetToken;
 import com.example.TodoListBackend.Model.User;
 import com.example.TodoListBackend.Repository.PasswordResetTokenRepository;
 import com.example.TodoListBackend.Repository.UserRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +19,8 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserServiceImpl implements UserService{
 
     @Autowired
@@ -106,8 +112,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public void resetPassword(String token, String newPassword) {
         System.out.println("Checking token: " + token);
+        System.out.println("Checking token: " + newPassword);
+
         PasswordResetToken resetToken = passwordResetTokenRepository.findByToken(token)
                .orElseThrow(() -> new RuntimeException("invalid password reset token"));
+
 
         System.out.println("Token found: " + resetToken.getToken());
 

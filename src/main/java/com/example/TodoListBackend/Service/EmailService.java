@@ -13,7 +13,7 @@ public class EmailService {
     public void sendPasswordResetEmail(String toEmail, String resetUrl){
         SimpleMailMessage message= new SimpleMailMessage();
         message.setTo(toEmail);
-        message.setSubject("Password Reset Email ");
+        message.setSubject("Password Reset Email from ToDo App ");
         message.setText("Click the attached link to reset your password : "+ resetUrl);
 
         mailSender.send(message);

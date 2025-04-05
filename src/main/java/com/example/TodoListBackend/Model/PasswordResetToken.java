@@ -6,15 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
-import java.util.Date;
 
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class PasswordResetToken {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -30,6 +28,9 @@ public class PasswordResetToken {
         this.token = token;
         this.expiryDate = expiryDate;
         this.user = user;
+    }
+
+    public PasswordResetToken() {
     }
 
     //getters and setters

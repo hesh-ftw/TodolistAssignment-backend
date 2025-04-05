@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Map;
 
 @RestController
 @Controller
@@ -113,12 +114,11 @@ public class AuthController {
 
     //forgot password endpoint
     @PostMapping("/forgot-password")
-    public ResponseEntity<?> forgotPassword(@RequestParam String email){
+    public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> request){
+            String email= request.get("email");
         try{
             userService.generatePasswordResetToken(email);
-            MessageResponse response= new MessageResponse("password reset token sent !");
-            return new ResponseEntity<>(response,HttpStatus.OK);
-
+              return ResponseEntity.ok(new MessageResponse("password reset email sent!"));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new MessageResponse("Error sending password reset email"));
@@ -128,12 +128,8 @@ public class AuthController {
     @PostMapping("/reset-password")
     public ResponseEntity<?> resetPassword(@RequestParam String token, @RequestParam String newPassword){
         try{
-            System.out.println("beforeeeeee");
             userService.resetPassword(token,newPassword);
-            System.out.println("afterrrr");
-            MessageResponse response= new MessageResponse("password reset successful!");
-            return new ResponseEntity<>(response,HttpStatus.OK);
-
+            return ResponseEntity.ok(new MessageResponse("password reset successful "));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new MessageResponse(e.getMessage()));

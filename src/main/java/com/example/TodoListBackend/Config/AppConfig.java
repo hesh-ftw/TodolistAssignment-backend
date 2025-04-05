@@ -1,6 +1,7 @@
 package com.example.TodoListBackend.Config;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,6 +20,9 @@ import java.util.Arrays;
 @EnableWebSecurity
 public class AppConfig {
 
+    @Value("${frontend.url}")
+    String frontendUrl;
+
     @Bean
     //defines all the request need to be authenticated
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
@@ -28,6 +32,8 @@ public class AppConfig {
                 .authorizeHttpRequests(Authorize-> Authorize
 //                        .requestMatchers("/api/login/**").permitAll()
                         .requestMatchers("/api/task/**").authenticated()
+                        .requestMatchers("/api/users/**").authenticated()
+                        .requestMatchers("/api/public/**").permitAll()
                         .anyRequest().permitAll())
 
                 .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class) //validate incoming jwt token
@@ -45,7 +51,7 @@ public class AppConfig {
 
                 CorsConfiguration corsConfig = new CorsConfiguration();
                 // Allow specific origins
-                corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+                corsConfig.setAllowedOrigins(Arrays.asList(frontendUrl));
 
                 // Allow specific HTTP methods
                 corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS","PATCH"));
