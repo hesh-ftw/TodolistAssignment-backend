@@ -61,3 +61,6 @@ spring.datasource.password=your_mysql_password
 
 ```
 
+#### Please find the frontend repository of this application below 
+
+https://github.com/hesh-ftw/todolist-frontend
