@@ -38,3 +38,22 @@ jobs:
 
     - name: Run unit tests
       run: mvn test
+
+    - name: Run Spotless Check for code formatting
+      run: mvn spotless:check
+
+    - name: Run Checkstyle for code quality
+      run: mvn checkstyle:check
+
+    - name: Run OWASP Dependency Check, Vulnerability Scanning
+      run: mvn org.owasp:dependency-check-maven:check
+
+    - name: Build & Push Docker Image
+      uses: mr-smithers-excellent/docker-build-push@v4
+      with:
+        image: chamathheshan076/todolist-backend
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: latest
+
